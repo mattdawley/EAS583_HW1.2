@@ -26,9 +26,15 @@ def pin_to_ipfs(data):
 	return cid
 
 def get_from_ipfs(cid,content_type="json"):
-	pass
-	#assert isinstance(cid,str), f"get_from_ipfs accepts a cid in the form of a string"
-	#YOUR CODE HERE	
+	assert isinstance(cid,str), f"get_from_ipfs accepts a cid in the form of a string"
+	pinata_gateway_url = "https://green-kind-shark-845.mypinata.cloud/ipfs/"+cid
+	headers = {
+		"pinata_api_key": "4e8b2b5c83d672a0f9af",
+		"pinata_secret_api_key": "3b3a7b65f0d95d6efa153fc46578f966241c71f1f9f43c7d199c6d4d0d10c82a",
+	}
+	response = requests.get(pinata_gateway_url, headers=headers)
+	data = response.json()
+	assert isinstance(data,dict), f"get_from_ipfs should return a dict"
+	return data
 
-	#assert isinstance(data,dict), f"get_from_ipfs should return a dict"
-	#return data
+# get_from_ipfs("QmeaKXvbjjnttzu4ttAzjDQ2wHR97uCX84LyyAyLMtLagm")
