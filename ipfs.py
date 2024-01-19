@@ -1,8 +1,6 @@
 import requests
 import json
 
-# secret
-
 def pin_to_ipfs(data):
 	assert isinstance(data,dict), f"Error pin_to_ipfs expects a dictionary"
 
@@ -13,7 +11,8 @@ def pin_to_ipfs(data):
 	}
 
 	json_data = json.dumps(data)
-	payload = { "pinataContent": json_data }
+	print("type:",type(json_data))
+	payload = { "content-type": "application/json", "pinataContent": json_data }
 
 	response = requests.post(pinata_api_url, json=payload, headers=headers)
 
@@ -46,7 +45,17 @@ def get_from_ipfs(cid,content_type="json"):
 	return data
 
 #tests
-#print(get_from_ipfs("QmNpkTxeVvUvzsLCH2Ge1mvPdpkianqK8Sji7GaEb1NUnY"))
-#print(get_from_ipfs("QmVpQFYdEG62apXg2UKuScj2YkpS7rA8SoeA7PtsvnvSr5"))
-#print(get_from_ipfs("QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/6623"))
-#print(get_from_ipfs("QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/7019"))
+"""
+d1 = get_from_ipfs("QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/6623")
+cid1 = pin_to_ipfs(d1)
+print(get_from_ipfs(cid1))
+print("-----")
+test = {"a":1, "b": 2}
+cid2 = pin_to_ipfs(test)
+print(get_from_ipfs(cid2))
+print("-----")
+print(get_from_ipfs("QmNpkTxeVvUvzsLCH2Ge1mvPdpkianqK8Sji7GaEb1NUnY"))
+print(get_from_ipfs("QmVpQFYdEG62apXg2UKuScj2YkpS7rA8SoeA7PtsvnvSr5"))
+print(get_from_ipfs("QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/6623"))
+print(get_from_ipfs("QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/7019"))
+"""
