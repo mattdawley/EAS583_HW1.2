@@ -11,7 +11,7 @@ def pin_to_ipfs(data):
 	}
 
 	json_data = json.dumps(data)
-	print("type:",type(json_data))
+
 	payload = { "content-type": "application/json", "pinataContent": json_data }
 
 	response = requests.post(pinata_api_url, json=payload, headers=headers)
